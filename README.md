@@ -7,7 +7,7 @@ Sistema fullstack para la gestión de ofertas y licitaciones, desarrollado confo
 - **Creación y edición de ofertas** con validaciones completas (frontend y backend)
 - **Gestión de documentos adjuntos** (PDF/ZIP) en edición
 - **Listado paginado** con filtros por consecutivo, objeto o descripción
-- **Generación automática de consecutivos** en formato O-0001-25
+- **Generación automática de consecutivos** en formato PO-0001-25
 - **Vista detallada** de ofertas con todas sus secciones
 - **Arquitectura limpia sin frameworks en backend** (PHP puro + ORM Eloquent standalone)
 
@@ -22,7 +22,7 @@ Sistema fullstack para la gestión de ofertas y licitaciones, desarrollado confo
 ## 📋 Frontend
 - Vue.js 2.6+
 - Axios y Fetch para consumo de API
-- Element UI (o Bootstrap 5.2+ según elección)
+- Element UI (Elegido en este caso por mayor dominio)
 - Validaciones en tiempo real y feedback al usuario
 - Formularios reactivos con estados de botones condicionales
 
@@ -101,18 +101,10 @@ Previamente tener instalado en el equipo Docker y Docker-compose en su version >
 docker-compose up --build
 ```
 
-### 4. Ejecutar en modo desarrollo Frontend
-
-```bash
-npm run serve
-```
-
-La aplicación estará disponible en `http://localhost:8080`
+La aplicación estará disponible en `http://localhost:8081`
 
 
 ## 🔌 Integración con Backend
-
-El frontend se comunica con el backend FastAPI a través de los siguientes endpoints:
 
 El frontend se comunica con el backend PHP a través de los siguientes endpoints:
 
@@ -128,16 +120,11 @@ El frontend se comunica con el backend PHP a través de los siguientes endpoints
 
 ## 🚀 Despliegue
 
-### Desarrollo Local
+### Desarrollo Local (Sin Docker)
 
 ```bash
+cd frontend
 npm run serve
-```
-
-### Construcción para Producción
-
-```bash
-npm run build
 ```
 
 ### Docker Compose (Proyecto Completo)
