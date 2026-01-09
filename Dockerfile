@@ -1,6 +1,6 @@
 FROM php:8.2-fpm
 
-# Dependencias del sistema necesarias para extensiones PHP
+# Instalar dependencias del sistema
 RUN apt-get update && apt-get install -y \
     zip unzip git \
     libzip-dev \
@@ -17,18 +17,21 @@ RUN apt-get update && apt-get install -y \
 # Instalar Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Directorio de trabajo
+# Establecer el directorio de trabajo
 WORKDIR /var/www
 
-# Copiar proyecto
+# 👇 Copiar SOLO los archivos necesarios para Composer (no todo el proyecto)
+COPY composer.json composer.lock ./
+
+# 👇 Instalar dependencias primero (aprovecha caché de Docker)
+RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
+
+# 👇 Ahora copiar el resto del código
 COPY . .
 
-# Instalar dependencias PHP
-RUN composer install --no-dev --optimize-autoloader
+# 👇 No necesitas composer install de nuevo ni dump-autoload (ya se hizo en install)
+# Pero si quieres asegurarte (opcional):
+RUN composer dump-autoload --optimize
 
 # Permisos
 RUN chown -R www-data:www-data /var/www
-
-# Se ejecuta autoload 
-RUN composer dump-autoload
-RUN composer install
