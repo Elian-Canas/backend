@@ -10,7 +10,7 @@ class OfertaDocumento extends Model
   public $timestamps = true;
 
   const CREATED_AT = 'creado_en';
-  const UPDATED_AT = 'actualizado_en';
+  const UPDATED_AT = null;
 
   protected $fillable = [
     'licitacion_id',

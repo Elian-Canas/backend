@@ -16,11 +16,17 @@ class DocumentoController
             $file = $_FILES['archivo'];
             $data = $_POST;
 
+            if (empty($_FILES['archivo'])) {
+                throw new Exception('No se envió ningún archivo');
+            }
             DocumentoValidator::validate($file);
 
             $path = FileUploader::upload(
                 $file,
-                'uploads/documentos'
+                'documentos',
+                ['pdf', 'zip'],         // Extensiones permitidas
+                10 * 1024 * 1024        // 10 MB
+
             );
 
             $doc = OfertaDocumento::create([
@@ -32,7 +38,6 @@ class DocumentoController
             ]);
 
             Response::json($doc, 201);
-
         } catch (Exception $e) {
             Response::error($e->getMessage(), 422);
         }

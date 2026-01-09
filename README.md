@@ -66,25 +66,37 @@ cd suplos_prueba_fullstack
 
 ### 2. Configurar variables de entorno
 
-Copiar el archivo de ejemplo y configurar las variables *Frontend*:
+De acuerdo al archivo de ejemplo y configurar las variables de entorno principalmente indicando la IP de su equipo *Frontend*:
 
 ```bash
 cp .env-production .env
-Dirigirse al archivo src/config.js e indicar la IP del equipo
+Dirigirse al archivo src/config.js e indicar la IP del equipo en apiBaseUrl: "http://192.168.1.22:8080"
 ```
 
-Dentro del archivo docker-compose.yml en la seccion contenedor *frontend - vue* indicar la IP del equipo: 
+Dentro de la carpeta <b>suplos_prueba_fullstack</b> en el archivo *docker-compose.yml* en la seccion contenedor *frontend - vue* indicar la IP del equipo: 
+
 ```bash
 VUE_APP_API_BASE_URL=http://192.168.1.32:8080
 ```
-Dentro del archivo *docker-compose.yml en la seccion contenedor mysql - environment* indicar las credenciales de la base de datos:
+Dentro del archivo *docker-compose.yml en la seccion contenedor mysql - environment* indicar las credenciales que desea definir para el acceso a la base de datos:
+
   - MYSQL_DATABASE: db
   - MYSQL_USER: xxxxxx
   - MYSQL_PASSWORD: xxxxxx
   - MYSQL_ROOT_PASSWORD: xxxxxx
 
+### 2.1 Configuracion Backend .env 
+Crear el archivo .env dentro de la carpeta Backend definiendo las variables que se mencionan en el archivo .env.example. Definir nuevamente las credenciales de base de datos y coincidan con las definidas en el *docker-compose.yml*
+
+- DB_CONNECTION=mysql
+- DB_HOST=suplos_mysql
+- DB_PORT=3306
+- DB_NAME=suplos_db
+- DB_USER=xxxxxx
+- DB_PASS=xxxxxxx
 
 ### 3. Construir e iniciar los contenedores
+Previamente tener instalado en el equipo Docker y Docker-compose en su version >= v2.32
 ```bash
 docker-compose up --build
 ```
@@ -113,3 +125,34 @@ El frontend se comunica con el backend PHP a través de los siguientes endpoints
 - `GET /actividades` – Obtener listado completo de actividades (maestra UNSPSC)
 - `GET /actividades/buscar` – Buscar actividades por nombre o código
 - `GET /actividades/{id}` – Obtener detalles de una actividad específica
+
+## 🚀 Despliegue
+
+### Desarrollo Local
+
+```bash
+npm run serve
+```
+
+### Construcción para Producción
+
+```bash
+npm run build
+```
+
+### Docker Compose (Proyecto Completo)
+
+Desde el repositorio principal `suplos_prueba_fullstack`:
+
+```bash
+docker-compose build
+docker-compose up
+```
+
+## 👨‍💻 Autor
+
+**Elian Santiago Cañas**
+
+## 🔗 Repositorios Relacionados
+
+- **Fullstack**: [suplos_prueba_fullstack](https://github.com/Elian-Canas/suplos_prueba_fullstack.git)
