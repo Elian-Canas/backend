@@ -28,3 +28,7 @@ RUN composer install --no-dev --optimize-autoloader
 
 # Permisos
 RUN chown -R www-data:www-data /var/www
+
+# Se ejecuta autoload 
+RUN composer dump-autoload
+RUN composer install
